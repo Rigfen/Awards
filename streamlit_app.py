@@ -1,4 +1,8 @@
 import streamlit as st
+
+# MUST be first Streamlit command
+st.set_page_config(page_title="AF Form 1206 Award Builder", layout="wide")
+
 # =====================================================
 # AF FORM 1206 – NOMINATION HEADER
 # =====================================================
@@ -6,7 +10,7 @@ import streamlit as st
 st.markdown("## NOMINATION FOR AWARD")
 
 # Row 1
-col1, col2, col3 = st.columns([2, 2, 2])
+col1, col2, col3 = st.columns(3)
 award = col1.text_input("AWARD")
 category = col2.text_input("CATEGORY (If Applicable)")
 award_period = col3.text_input("AWARD PERIOD")
@@ -17,26 +21,41 @@ nominee_name = col4.text_input("RANK/NAME OF NOMINEE (First, Middle Initial, Las
 majcom = col5.text_input("MAJCOM, FLDCOM, FOA OR DRU (ALL CAPS)")
 
 # Row 3
-col6, col7 = st.columns([2, 2])
+col6, col7 = st.columns(2)
 dafsc = col6.text_input("DAFSC/DUTY TITLE")
-nominee_phone = col7.text_input("NOMINEE'S TELEPHONE (DSN & Commercial)(You dont need a area code)")
+nominee_phone = col7.text_input("NOMINEE'S TELEPHONE (DSN & Commercial)")
 
 # Row 4
 unit_address = st.text_input(
-    "UNIT/OFFICE SYMBOL/STREET ADDRESS/BASE/STATE/ZIP CODE(Simple address. No th in 48th)"
+    "UNIT/OFFICE SYMBOL/STREET ADDRESS/BASE/STATE/ZIP CODE"
 )
 
-# Row 5
-commander_info = st.text_input(
-    "RANK/NAME OF UNIT COMMANDER (First, Middle Initial, Last) / COMMANDER'S TELEPHONE (DSN & Commercial)"
+# Row 5 (Commander Info)
+col8, col9 = st.columns(2)
+commander_name = col8.text_input(
+    "RANK/NAME OF UNIT COMMANDER (First, Middle Initial, Last)"
+)
+commander_phone = col9.text_input(
+    "COMMANDER'S TELEPHONE (DSN & Commercial)"
 )
 
 st.divider()
 
-if "compiled" in st.session_state:
-    st.text_area("Compiled Output", st.session_state["compiled"], height=300)
-    st.write(f"Character Count: {len(st.session_state['compiled'])}")
-st.set_page_config(page_title="AF Form 1206 Award Builder", layout="wide")
+# =====================================================
+# COMMANDER'S BLOCK (replaces Block 6)
+# =====================================================
+st.subheader("COMMANDER'S BLOCK")
+
+commander_block = st.text_area(
+    "Commander’s Comments / Endorsement",
+    height=150
+)
+
+st.divider()
+
+# =====================================================
+# SCORING + BUILDER SETTINGS
+# =====================================================
 
 MAX_POINTS = 32
 
@@ -66,64 +85,38 @@ st.title("AF Form 1206 Award Builder")
 # =====================================================
 # PERFORMANCE STATEMENT GUIDANCE
 # =====================================================
-with st.expander("Performance Statements Guidance (AF Form 1206)", expanded=False):
+
+with st.expander("Performance Statements Guidance (AF Form 1206)"):
 
     st.subheader("Purpose")
     st.write("""
-Performance Statements are the Air Force narrative-style method used on AF Form 1206 
-to clearly communicate an Airman’s performance.
+Performance Statements communicate an Airman’s performance clearly and concisely.
 """)
 
-    st.subheader("Two Core Principles")
+    st.subheader("Core Principles")
 
     st.markdown("""
 **Standalone**
-- Each statement must stand on its own.
-- Must include:
-  - an **action**
-  - and at least one:
-    - impact
-    - result/outcome
+- Include action + impact/result
 
 **Readability**
-- Use plain language.
-- Avoid uncommon acronyms.
-- Only use approved Air Force acronyms.
-""")
-
-    st.subheader("Administration & Format")
-
-    st.markdown("""
-- AF Form 1206 is the standard award nomination form.
-- White space on the right margin is expected.
-- Award authority sets maximum length.
-- Nominations may not exceed one full AF Form 1206 page.
-- Bullets are **not authorized**.
-- Future forms may include character limits.
+- Use plain language
+- Avoid uncommon acronyms
 """)
 
     st.subheader("Writing Tips")
+
     st.markdown("""
-✔ Be specific and measurable  
-✔ Include results and mission impact  
-✔ Quantify whenever possible  
+✔ Be measurable  
+✔ Show mission impact  
+✔ Quantify results  
 ✔ Avoid vague claims  
-✔ Focus on mission contribution  
-""")
-
-    st.subheader("Example Performance Statements")
-
-    st.info("""
-Capt Snuffy led a survey team of 33 MCA to establish an XAB supporting a PACAF ACE exercise across 4 countries and 7 allies, culminating in 153 sorties and 334 training events. She also championed a merger of maintenance and operations; results saved 360 maintenance workhours weekly and increased sortie generation by 10%.
-""")
-
-    st.info("""
-TSgt Snuffy led 4 instructors through Mission Ready Airmen course validation, generating 153 changes, eliminating 32 classroom hours, and improving training for 70 students annually. Additionally, he facilitated a $15M facility renovation ensuring on-time course delivery for 8 programs across 11 AFSCs.
 """)
 
 # =====================================================
 # COMPLIANCE CHECKS
 # =====================================================
+
 st.header("Compliance")
 
 compliance_checks = []
@@ -134,8 +127,9 @@ for label, pts in general_checks:
 st.divider()
 
 # =====================================================
-# CITATION SECTIONS
+# CITATION BUILDER
 # =====================================================
+
 st.header("1206 Builder")
 
 section_text = {}
@@ -159,6 +153,7 @@ for name, pts in sections:
 # =====================================================
 # SCORE
 # =====================================================
+
 score = 0
 
 for checked, pts in compliance_checks:
@@ -174,7 +169,7 @@ st.header(f"Total Score: {score} / {MAX_POINTS}")
 # =====================================================
 # COMPILE CITATION
 # =====================================================
-st.divider()
+
 st.header("Final Citation")
 
 if st.button("Compile Citation"):
@@ -187,3 +182,6 @@ if st.button("Compile Citation"):
 
     st.session_state["compiled"] = compiled
 
+if "compiled" in st.session_state:
+    st.text_area("Compiled Output", st.session_state["compiled"], height=300)
+    st.write(f"Character Count: {len(st.session_state['compiled'])}")
