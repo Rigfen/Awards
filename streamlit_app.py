@@ -166,16 +166,16 @@ award_period = col3.text_input("AWARD PERIOD")
 # Row 2
 col4, col5 = st.columns([3, 2])
 nominee_name = col4.text_input("RANK/NAME OF NOMINEE (First, Middle Initial, Last)")
-majcom = col5.text_input("MAJCOM, FLDCOM, FOA OR DRU")
+majcom = col5.text_input("MAJCOM, FLDCOM, FOA OR DRU (ALL CAPS)")
 
 # Row 3
 col6, col7 = st.columns([2, 2])
 dafsc = col6.text_input("DAFSC/DUTY TITLE")
-nominee_phone = col7.text_input("NOMINEE'S TELEPHONE (DSN & Commercial)")
+nominee_phone = col7.text_input("NOMINEE'S TELEPHONE (DSN & Commercial)(You dont need a area code)")
 
 # Row 4
 unit_address = st.text_input(
-    "UNIT/OFFICE SYMBOL/STREET ADDRESS/BASE/STATE/ZIP CODE"
+    "UNIT/OFFICE SYMBOL/STREET ADDRESS/BASE/STATE/ZIP CODE(Simple address. No th in 48th)"
 )
 
 # Row 5
