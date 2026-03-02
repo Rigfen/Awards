@@ -1,5 +1,41 @@
 import streamlit as st
+# =====================================================
+# AF FORM 1206 – NOMINATION HEADER
+# =====================================================
 
+st.markdown("## NOMINATION FOR AWARD")
+
+# Row 1
+col1, col2, col3 = st.columns([2, 2, 2])
+award = col1.text_input("AWARD")
+category = col2.text_input("CATEGORY (If Applicable)")
+award_period = col3.text_input("AWARD PERIOD")
+
+# Row 2
+col4, col5 = st.columns([3, 2])
+nominee_name = col4.text_input("RANK/NAME OF NOMINEE (First, Middle Initial, Last)")
+majcom = col5.text_input("MAJCOM, FLDCOM, FOA OR DRU (ALL CAPS)")
+
+# Row 3
+col6, col7 = st.columns([2, 2])
+dafsc = col6.text_input("DAFSC/DUTY TITLE")
+nominee_phone = col7.text_input("NOMINEE'S TELEPHONE (DSN & Commercial)(You dont need a area code)")
+
+# Row 4
+unit_address = st.text_input(
+    "UNIT/OFFICE SYMBOL/STREET ADDRESS/BASE/STATE/ZIP CODE(Simple address. No th in 48th)"
+)
+
+# Row 5
+commander_info = st.text_input(
+    "RANK/NAME OF UNIT COMMANDER (First, Middle Initial, Last) / COMMANDER'S TELEPHONE (DSN & Commercial)"
+)
+
+st.divider()
+
+if "compiled" in st.session_state:
+    st.text_area("Compiled Output", st.session_state["compiled"], height=300)
+    st.write(f"Character Count: {len(st.session_state['compiled'])}")
 st.set_page_config(page_title="AF Form 1206 Award Builder", layout="wide")
 
 MAX_POINTS = 32
@@ -151,40 +187,3 @@ if st.button("Compile Citation"):
 
     st.session_state["compiled"] = compiled
 
-# =====================================================
-# AF FORM 1206 – NOMINATION HEADER
-# =====================================================
-
-st.markdown("## NOMINATION FOR AWARD")
-
-# Row 1
-col1, col2, col3 = st.columns([2, 2, 2])
-award = col1.text_input("AWARD")
-category = col2.text_input("CATEGORY (If Applicable)")
-award_period = col3.text_input("AWARD PERIOD")
-
-# Row 2
-col4, col5 = st.columns([3, 2])
-nominee_name = col4.text_input("RANK/NAME OF NOMINEE (First, Middle Initial, Last)")
-majcom = col5.text_input("MAJCOM, FLDCOM, FOA OR DRU (ALL CAPS)")
-
-# Row 3
-col6, col7 = st.columns([2, 2])
-dafsc = col6.text_input("DAFSC/DUTY TITLE")
-nominee_phone = col7.text_input("NOMINEE'S TELEPHONE (DSN & Commercial)(You dont need a area code)")
-
-# Row 4
-unit_address = st.text_input(
-    "UNIT/OFFICE SYMBOL/STREET ADDRESS/BASE/STATE/ZIP CODE(Simple address. No th in 48th)"
-)
-
-# Row 5
-commander_info = st.text_input(
-    "RANK/NAME OF UNIT COMMANDER (First, Middle Initial, Last) / COMMANDER'S TELEPHONE (DSN & Commercial)"
-)
-
-st.divider()
-
-if "compiled" in st.session_state:
-    st.text_area("Compiled Output", st.session_state["compiled"], height=300)
-    st.write(f"Character Count: {len(st.session_state['compiled'])}")
