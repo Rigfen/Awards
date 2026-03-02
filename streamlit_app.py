@@ -1,6 +1,6 @@
 import streamlit as st
 
-st.set_page_config(page_title="Air & Space Achievement Medal Builder", layout="wide")
+st.set_page_config(page_title="AF Form 1206 Award Builder", layout="wide")
 
 MAX_POINTS = 32
 
@@ -25,11 +25,69 @@ sections = [
     ("Feedback Form Completed", 2),
 ]
 
-st.title("Air & Space Achievement Medal Builder")
+st.title("AF Form 1206 Award Builder")
 
-# -------------------------
-# COMPLIANCE SECTION
-# -------------------------
+# =====================================================
+# PERFORMANCE STATEMENT GUIDANCE
+# =====================================================
+with st.expander("Performance Statements Guidance (AF Form 1206)", expanded=False):
+
+    st.subheader("Purpose")
+    st.write("""
+Performance Statements are the Air Force narrative-style method used on AF Form 1206 
+to clearly communicate an Airman’s performance.
+""")
+
+    st.subheader("Two Core Principles")
+
+    st.markdown("""
+**Standalone**
+- Each statement must stand on its own.
+- Must include:
+  - an **action**
+  - and at least one:
+    - impact
+    - result/outcome
+
+**Readability**
+- Use plain language.
+- Avoid uncommon acronyms.
+- Only use approved Air Force acronyms.
+""")
+
+    st.subheader("Administration & Format")
+
+    st.markdown("""
+- AF Form 1206 is the standard award nomination form.
+- White space on the right margin is expected.
+- Award authority sets maximum length.
+- Nominations may not exceed one full AF Form 1206 page.
+- Bullets are **not authorized**.
+- Future forms may include character limits.
+""")
+
+    st.subheader("Writing Tips")
+    st.markdown("""
+✔ Be specific and measurable  
+✔ Include results and mission impact  
+✔ Quantify whenever possible  
+✔ Avoid vague claims  
+✔ Focus on mission contribution  
+""")
+
+    st.subheader("Example Performance Statements")
+
+    st.info("""
+Capt Snuffy led a survey team of 33 MCA to establish an XAB supporting a PACAF ACE exercise across 4 countries and 7 allies, culminating in 153 sorties and 334 training events. She also championed a merger of maintenance and operations; results saved 360 maintenance workhours weekly and increased sortie generation by 10%.
+""")
+
+    st.info("""
+TSgt Snuffy led 4 instructors through Mission Ready Airmen course validation, generating 153 changes, eliminating 32 classroom hours, and improving training for 70 students annually. Additionally, he facilitated a $15M facility renovation ensuring on-time course delivery for 8 programs across 11 AFSCs.
+""")
+
+# =====================================================
+# COMPLIANCE CHECKS
+# =====================================================
 st.header("Compliance")
 
 compliance_checks = []
@@ -39,10 +97,10 @@ for label, pts in general_checks:
 
 st.divider()
 
-# -------------------------
-# SECTION INPUTS
-# -------------------------
-st.header("Citation Sections")
+# =====================================================
+# CITATION SECTIONS
+# =====================================================
+st.header("Citation Builder")
 
 section_text = {}
 section_checks = []
@@ -62,9 +120,9 @@ for name, pts in sections:
 
     st.divider()
 
-# -------------------------
-# SCORE CALCULATION
-# -------------------------
+# =====================================================
+# SCORE
+# =====================================================
 score = 0
 
 for checked, pts in compliance_checks:
@@ -77,9 +135,9 @@ for checked, pts in section_checks:
 
 st.header(f"Total Score: {score} / {MAX_POINTS}")
 
-# -------------------------
+# =====================================================
 # COMPILE CITATION
-# -------------------------
+# =====================================================
 st.divider()
 st.header("Final Citation")
 
