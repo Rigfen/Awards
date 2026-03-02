@@ -100,7 +100,7 @@ st.divider()
 # =====================================================
 # CITATION SECTIONS
 # =====================================================
-st.header("Citation Builder")
+st.header("1206 Builder")
 
 section_text = {}
 section_checks = []
